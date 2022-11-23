@@ -30,94 +30,86 @@ class Cards extends StatelessWidget {
       child: Container(
         width: width - 20,
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
+            Text(
+              name,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: 20, color: mainColor),
+            ),
+            Row(
               children: [
+                Icon(
+                  telIcon,
+                  color: mainColor,
+                  size: 24,
+                ),
+                const SizedBox(
+                  width: 7,
+                ),
                 Text(
-                  name,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: mainColor),
+                  tel,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-                Row(
-                  children: [
-                    Icon(
-                      telIcon,
-                      color: mainColor,
-                      size: 24,
-                    ),
-                    const SizedBox(
-                      width: 7,
-                    ),
-                    Text(
-                      tel,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      emailIcon,
-                      color: mainColor,
-                      size: 24,
-                    ),
-                    const SizedBox(
-                      width: 7,
-                    ),
-                    Text(
-                      email,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    SizedBox(
-                      width: width * 0.47,
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        FocusScopeNode currentFocus = FocusScope.of(context);
-
-                        if (!currentFocus.hasPrimaryFocus) {
-                          currentFocus.unfocus();
-                        }
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => Publicaciones(
-                              id: id,
-                              name: name,
-                              tel: tel,
-                              email: email,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        'VER PUBLICACIONES',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: mainColor),
-                      ),
-                    )
-                  ],
-                )
               ],
             ),
+            Row(
+              children: [
+                Icon(
+                  emailIcon,
+                  color: mainColor,
+                  size: 24,
+                ),
+                const SizedBox(
+                  width: 7,
+                ),
+                Text(
+                  email,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                TextButton(
+                  onPressed: () async {
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => Publicaciones(
+                          id: id,
+                          name: name,
+                          tel: tel,
+                          email: email,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'VER PUBLICACIONES',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: mainColor),
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),
