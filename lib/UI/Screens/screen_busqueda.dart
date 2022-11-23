@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:prueba_de_ingreso/BLoC/use_cases.dart';
 import 'package:prueba_de_ingreso/Modelos/usuarios.dart';
+import 'package:prueba_de_ingreso/UI/Widgets/boton_reintentar.dart';
 import 'package:prueba_de_ingreso/UI/Widgets/listar_usuarios.dart';
+import 'package:prueba_de_ingreso/variables_globales.dart';
 
 class ScreenBusqueda extends StatefulWidget {
   const ScreenBusqueda({Key? key}) : super(key: key);
@@ -73,17 +75,42 @@ class _ScreenBusquedaState extends State<ScreenBusqueda> {
                 ? StreamBuilder<Usuario>(
                     stream: loadUsuarios(),
                     builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        print('data de internet');
-                        if (usuario.isEmpty && hasTyped == false) {
-                          usuario = usuarios;
-                        }
+                      if (hayInternet) {
+                        if (snapshot.hasData) {
+                          print('data de internet');
+                          if (usuario.isEmpty && hasTyped == false) {
+                            usuario = usuarios;
+                          }
 
-                        return usuario.isNotEmpty
-                            ? ListarUsuarios(usuario: usuario)
-                            : ListIsEmpty(width: width);
+                          return usuario.isNotEmpty
+                              ? ListarUsuarios(usuario: usuario)
+                              : ListIsEmpty(width: width);
+                        } else {
+                          return const LinearProgressIndicator();
+                        }
                       } else {
-                        return const LinearProgressIndicator();
+                        return Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            width: width - 20,
+                            //color: Colors.red,
+                            child: Column(
+                              children: [
+                                const Text(
+                                  'No hay Internet, verifica la red e intenta nuevamente',
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                BotonReintentar(
+                                  mainColor: mainColor,
+                                  onPressed: () {
+                                    metodoHayInternet();
+                                    setState(() {});
+                                  },
+                                )
+                              ],
+                            ));
                       }
                     })
                 : usuario.isNotEmpty

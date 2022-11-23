@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:prueba_de_ingreso/BLoC/use_cases.dart';
 import 'package:prueba_de_ingreso/UI/Screens/screen_publicaciones.dart';
+import 'package:prueba_de_ingreso/variables_globales.dart';
 
 class Cards extends StatelessWidget {
   final String name;
@@ -88,6 +90,7 @@ class Cards extends StatelessWidget {
                     if (!currentFocus.hasPrimaryFocus) {
                       currentFocus.unfocus();
                     }
+                    metodoHayInternet();
                     Navigator.push(
                       context,
                       MaterialPageRoute<void>(

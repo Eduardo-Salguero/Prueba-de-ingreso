@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:prueba_de_ingreso/BLoC/use_cases.dart';
 import 'package:prueba_de_ingreso/Modelos/usuarios.dart';
 import 'package:prueba_de_ingreso/UI/Screens/screen_busqueda.dart';
 
@@ -9,6 +10,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UsuarioAdapter());
   await Hive.openBox<Usuario>('usuarios');
+  await metodoHayInternet();
   runApp(const MyApp());
 }
 
